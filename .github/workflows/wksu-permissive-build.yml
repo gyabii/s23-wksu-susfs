@@ -1,5 +1,5 @@
 # build.yml kanged from Rezoss Reza modified to build kernel with WildKSU using the stable branch
-name: Build kernel (WildKSU, SuSFS, `stable` branch)
+name: Build kernel (Permissive, WildKSU, SuSFS, `stable` branch)
 on:
   workflow_dispatch:
 
