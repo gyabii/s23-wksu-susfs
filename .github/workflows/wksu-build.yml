@@ -1,4 +1,4 @@
-# build.yml kanged from Rezoss Reza modified to build kernel with WildKSU using the stable branch
+# build.yml kanged from Rezoss Reza modified to build kernel with WildKSU and SuSFS using the stable branch
 name: Build kernel (WildKSU, SuSFS, `stable` branch)
 on:
   workflow_dispatch:
@@ -29,7 +29,7 @@ jobs:
           echo "KERNEL_VERSION=$(grep -m1 '^SUBLEVEL =' ./kernel/Makefile | awk '{print $3}')" >> $GITHUB_ENV
           
           
-      - name: Apply WildKSU
+      - name: Apply WildKSU with SuSFS
         run: |
           set -euxo pipefail
           cd kernel
@@ -37,6 +37,7 @@ jobs:
           # Integrate WildKSU
           curl -LSs "https://raw.githubusercontent.com/WildKernels/Wild_KSU/refs/heads/stable/kernel/setup.sh" | bash -s stable
           
+          # Integrate SuSFS
           git clone --depth=1 https://gitlab.com/simonpunk/susfs4ksu.git -b gki-android13-5.15
           
           SUSFS_KERNEL_PATCH="susfs4ksu/kernel_patches/50_add_susfs_in_gki-android13-5.15.patch"
